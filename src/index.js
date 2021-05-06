@@ -5,24 +5,27 @@ function checkPal (num) {
     return num === reverseNum;
 }
 
-let steps = 0;
-let result = 0;
-const resultObj = {};
+function createPal () {
+    let steps = 0;
+    let result = 0;
+    const resultObj = {};
 
-function makePal (num) {
-    if (checkPal(num)) return num;
+    return function makePal (num) {
 
-    const reverseNum = toRevNum(num);
-    result = num + reverseNum;
-    steps++;
+        if (checkPal(num)) return num;
 
-    if (!checkPal(result)) {
-        return makePal(result);
-    } else {
-        resultObj.result = result;
-        resultObj.steps = steps;
+        const reverseNum = toRevNum(num);
+        result = num + reverseNum;
+        steps++;
 
-        return resultObj;
-    }
+        if (!checkPal(result)) {
+            return makePal(result);
+        } else {
+            resultObj.result = result;
+            resultObj.steps = steps;
+
+            return resultObj;
+        }
+    };
 }
-makePal();
+createPal();
